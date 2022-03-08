@@ -16,7 +16,9 @@ pipeline {
         stage("Init") {
             steps {
                 echo "Initializing"
-                sh 'cd terraform && terraform init -backend-config="bucket=${BUCKET}" -backend-config="key=${KEY}.t2state" -backend-config="region=${REGION}"'
+                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'aws-key', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                    sh "cd terraform && terraform init"
+                }
             }
         }
 
