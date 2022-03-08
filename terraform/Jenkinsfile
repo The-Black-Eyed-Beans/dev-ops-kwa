@@ -5,7 +5,7 @@ pipeline {
         REGION = "us-east-1"
         AWS_USER_ID = credentials("jenkins-aws-user-id")
     }
-
+    //
     stages {
         stage("Init") {
             steps {
