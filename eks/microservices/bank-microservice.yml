@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bank-deployment
+  labels:
+    app: bank
+    role: microservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bank
+  template:
+    metadata:
+      labels:
+        app: bank
+        role: microservice
+    spec:
+      nodeSelector:
+        ng-type: private
+      containers:
+        - name: bank
+          image: kw2000/bank-microservice
+          ports:
+            - name: bank
+              containerPort: 8083
+          env:
+            - name: APP_PORT
+              value: "8083"
+          envFrom:
+            - configMapRef:
+                name: env
+            - secretRef:
+                name: mysecret

@@ -1,0 +1,18 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+metadata:
+  name: kwa-aline
+  region: us-west-1
+
+nodeGroups:
+  - name: EKS-public-workers
+    labels:
+      ng-type: public
+    instanceType: t2.medium
+    desiredCapacity: 1
+  - name: EKS-private-workers
+    labels: 
+      ng-type: private
+    instanceType: t2.medium
+    desiredCapacity: 1
+    privateNetworking: true

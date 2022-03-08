@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: underwriter-deployment
+  labels:
+    app: underwriter
+    role: microservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: underwriter
+  template:
+    metadata:
+      labels:
+        app: underwriter
+        role: microservice
+    spec:
+      nodeSelector:
+        ng-type: private
+      containers:
+        - name: underwriter
+          image: kw2000/underwriter-microservice
+          ports:
+            - name: underwriter
+              containerPort: 8071
+          env:
+            - name: APP_PORT
+              value: "8071"
+          envFrom:
+            - configMapRef:
+                name: env
+            - secretRef:
+                name: mysecret
