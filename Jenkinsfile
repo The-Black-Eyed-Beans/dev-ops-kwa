@@ -6,15 +6,18 @@ pipeline {
     }
 
     environment {
-        REGION = "us-east-1"
-        AWS_USER_ID = credentials("jenkins-aws-user-id")
+        REGION = credentials("region-kwa")
+        // AWS_USER_ID = credentials("jenkins-aws-user-id")
+        BUCKET = "kwa-terraform-s3"
+        KEY = "terraform-infrastructure"
     }
     //
     stages {
         stage("Init") {
             steps {
                 echo "Initializing"
-                sh "cd terraform && terraform init"
+                sh "cd terraform"
+                sh 'terraform init -backend-config="bucket=${BUCKET}" -backend-config="key=${KEY}.t2state" -backend-config="region=${REGION}"'
             }
         }
 
