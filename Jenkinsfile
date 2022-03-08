@@ -28,7 +28,9 @@ pipeline {
                 dir ("terraform/deploy") {
                     // sh "cd terraform/deploy"
                     // sh "terraform init"
-                    sh "terraform init && terraform plan"
+                    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'aws-key', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                        sh "terraform init && terraform plan"
+                    }
                 }
             }
         }
