@@ -16,18 +16,18 @@ pipeline {
         stage("Init") {
             steps {
                 echo "Initializing"
-                sh "cd terraform"
-                sh 'terraform init -backend-config="bucket=${BUCKET}" -backend-config="key=${KEY}.t2state" -backend-config="region=${REGION}"'
+                sh 'cd terraform && terraform init -backend-config="bucket=${BUCKET}" -backend-config="key=${KEY}.t2state" -backend-config="region=${REGION}"'
             }
         }
 
         stage("Plan") {
             steps {
                 echo "Planning"
-                sh "cd deploy"
-                // sh "cd terraform/deploy"
-                // sh "terraform init"
-                sh "terraform plan -var-file=input.tfvars"
+                dir ("terraform/deploy") {
+                    // sh "cd terraform/deploy"
+                    // sh "terraform init"
+                    sh "terraform plan -var-file=input.tfvars"
+                }
             }
         }
 
