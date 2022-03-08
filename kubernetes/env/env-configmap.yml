@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: env
+data:
+  DB_HOST: aline-database-instance-1.cpghzbngoldo.us-east-1.rds.amazonaws.com
+  DB_NAME: alinedb-kwa
+  DB_USERNAME: kevin.wang
+  DB_PORT: "3306"
+  APP_SERVICE_HOST: backend-service

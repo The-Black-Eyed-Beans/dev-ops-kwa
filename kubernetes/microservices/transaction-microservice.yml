@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: transaction-deployment
+  labels:
+    app: transaction
+    role: microservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: transaction
+  template:
+    metadata:
+      labels:
+        app: transaction
+        role: microservice
+    spec:
+      containers:
+        - name: transaction
+          image: kw2000/transaction-microservice
+          ports:
+            - name: transaction
+              containerPort: 8073
+          env:
+            - name: APP_PORT
+              value: "8073"
+          envFrom:
+            - configMapRef:
+                name: env
+            - secretRef:
+                name: mysecret
