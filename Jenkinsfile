@@ -1,6 +1,10 @@
 pipeline {
 	agent any
 
+    tools {
+        terraform "Terraform1.1.7"    
+    }
+
     environment {
         REGION = "us-east-1"
         AWS_USER_ID = credentials("jenkins-aws-user-id")
