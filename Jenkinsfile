@@ -28,7 +28,7 @@ pipeline {
                 dir ("terraform/deploy") {
                     // sh "cd terraform/deploy"
                     // sh "terraform init"
-                    sh "terraform plan -var-file=input.tfvars"
+                    sh "terraform init && terraform plan -var-file=input.tfvars"
                 }
             }
         }
