@@ -14,15 +14,16 @@ pipeline {
         stage("Init") {
             steps {
                 echo "Initializing"
-                sh "terraform init"
+                sh "cd terraform && terraform init"
             }
         }
 
         stage("Plan") {
             steps {
                 echo "Planning"
-                sh "cd terraform/deploy"
-                sh "terraform init"
+                sh "cd deploy"
+                // sh "cd terraform/deploy"
+                // sh "terraform init"
                 sh "terraform plan -var-file=input.tfvars"
             }
         }
