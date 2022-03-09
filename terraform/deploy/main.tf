@@ -1,10 +1,9 @@
 provider "aws" {
-  profile = "kevin"
-  shared_config_files = ["$HOME/.aws/config"]
-  shared_credentials_files = ["$HOME/.aws/credentials"]
-  region  = var.region
+	access_key = var.aws_access_key
+	secret_key = var.aws_secret_key
+	region  = var.region
 }
-//
+
 module "vpc" {
 	source = "../modules/vpc"
 	vpc_cidr = var.vpc_cidr
