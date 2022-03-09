@@ -4,7 +4,7 @@ provider "aws" {
   shared_credentials_files = ["$HOME/.aws/credentials"]
   region  = var.region
 }
-
+//
 module "vpc" {
 	source = "../modules/vpc"
 	vpc_cidr = var.vpc_cidr
