@@ -1,5 +1,7 @@
 provider "aws" {
-  profile = "default"
+  profile = "kevin"
+  shared_config_files = ["$HOME/.aws/config"]
+  shared_credentials_files = ["$HOME/.aws/credentials"]
   region  = var.region
 }
 
