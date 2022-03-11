@@ -43,6 +43,7 @@ pipeline {
 
     post {
         cleanup {
+
             sh "rm terraform/deploy/terraform.tfvars"
         }
     }
