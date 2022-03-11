@@ -7,32 +7,19 @@ pipeline {
 
     environment {
         REGION = credentials("region-kwa")
-        // AWS_USER_ID = credentials("jenkins-aws-user-id")
-        BUCKET = "kwa-terraform-s3"
-        KEY = "terraform-infrastructure"
         AWS_ACCESS_KEY = credentials("aws_access_key")
         AWS_SECRET_KEY = credentials("aws_secret_key")
     }
-    //
-    stages {
-        stage("Init") {
-            steps {
-                echo "Initializing"
-                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'aws-key', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY']]) {
-                    sh "cd terraform && terraform init"
-                }
-            }
-        }
 
+    stages {
         stage("Plan") {
             steps {
                 echo "Planning"
                 dir ("terraform/deploy") {
-                    // sh "cd terraform/deploy"
-                    // sh "terraform init"
                     withCredentials([file(credentialsId: 'aws_key_file', variable: 'TFVARS')]) {
-                        sh "cp \$TFVARS /terraform.tfvars"
-                        sh "terraform init && terraform plan -out=output"
+                        sh "terraform init"
+                        sh "cp $TFVARS terraform.tfvars"
+                        sh "terraform plan -out=output"
                     }
                 }
             }
@@ -41,8 +28,7 @@ pipeline {
         stage("Apply") {
             steps {
                 echo "Applying"
-                sh "cd terraform/deploy"
-                sh "terraform apply -auto-approve 'output' > 'output_${BUILD_ID}.txt'"
+                sh "cd terraform/deploy && terraform apply output"
             }
         }
 
@@ -52,6 +38,12 @@ pipeline {
                 sh "cd terraform/deploy"
                 sh "terraform destroy"
             }
+        }
+    }
+
+    post {
+        cleanup {
+            sh "rm terraform/deploy/terraform.tfvars"
         }
     }
 
