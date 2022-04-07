@@ -13,14 +13,17 @@ pipeline {
 
     stages {
         stage("Update") {
-            sh "aws eks update-kubeconfig --name=kwa-cluster --region=${REGION}"
+            steps {
+                sh "aws eks update-kubeconfig --name=kwa-cluster --region=${REGION}"
+            }
         }
 
          stage("Apply") {
-            dir("eks") {
-                sh "kubectl apply -f ./env/"
-                sh "kubectl apply -f ./db/"
-                sh "kubectl apply -f ./microservices/"
+            steps {
+                dir("eks") {
+                    sh "kubectl apply -f ./env/"
+                    sh "kubectl apply -f ./db/"
+                    sh "kubectl apply -f ./microservices/"
             }
         }
     }
