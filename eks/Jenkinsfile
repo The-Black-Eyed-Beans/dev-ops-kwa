@@ -18,12 +18,13 @@ pipeline {
             }
         }
 
-         stage("Apply") {
+        stage("Apply") {
             steps {
                 dir("eks") {
                     sh "kubectl apply -f ./env/"
                     sh "kubectl apply -f ./db/"
                     sh "kubectl apply -f ./microservices/"
+                }
             }
         }
     }
