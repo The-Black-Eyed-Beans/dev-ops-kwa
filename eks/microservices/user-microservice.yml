@@ -20,7 +20,8 @@ spec:
         ng-type: private
       containers:
         - name: user
-          image: kw2000/user-microservice
+          image: 086620157175.dkr.ecr.us-east-1.amazonaws.com/kwa-user_microservice:latest
+          imagePullPolicy: Always
           ports:
             - name: user
               containerPort: 8070

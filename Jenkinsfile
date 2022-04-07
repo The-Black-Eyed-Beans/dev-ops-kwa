@@ -32,6 +32,7 @@ pipeline {
             }
         }
 
+        //Fix destroy directory
         stage("Destroy") {
             steps {
                 echo "Destroying"

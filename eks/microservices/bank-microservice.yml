@@ -20,7 +20,8 @@ spec:
         ng-type: private
       containers:
         - name: bank
-          image: kw2000/bank-microservice
+          image: 086620157175.dkr.ecr.us-east-1.amazonaws.com/kwa-bank_microservice:latest
+          imagePullPolicy: Always
           ports:
             - name: bank
               containerPort: 8083

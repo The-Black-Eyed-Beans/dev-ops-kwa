@@ -1,21 +1,16 @@
 variable "public" {
 	type = any
-	description = "The public subnet of the VPC"
-	default = "10.1.1.0/24"
+	description = "public subnet 1"
 }
 
 variable "private" {
 	type = any
-	description = "The private subnet of the VPC"
-	default = "10.1.2.0/24"
+	description = "private subnet 1"
 }
 
-variable "public_subnet_id" {
+variable "cluster_name" {
 	type = string
-	description = "Public subnet ID"
+	description = "Cluster name for EKS"
+	default = "kwa-cluster"
 }
 
-variable "private_subnet_id" {
-	type = string
-	description = "Private subnet ID"
-}

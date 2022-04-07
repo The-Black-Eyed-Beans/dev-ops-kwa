@@ -4,8 +4,36 @@ resource "aws_security_group" "http" {
   vpc_id = var.vpc_id
 
   ingress {
-    from_port = 80
-    to_port = 80
+    from_port = 8071
+    to_port = 8071
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port = 8073
+    to_port = 8073
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port = 8070
+    to_port = 8070
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port = 8083
+    to_port = 8083
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port = 8072
+    to_port = 8072
     protocol = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }

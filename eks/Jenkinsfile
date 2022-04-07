@@ -1,0 +1,30 @@
+pipeline {
+	agent any
+
+    tools {
+        terraform "Terraform1.1.7"    
+    }
+
+    environment {
+        REGION = credentials("region-kwa")
+        AWS_ACCESS_KEY = credentials("aws_access_key")
+        AWS_SECRET_KEY = credentials("aws_secret_key")
+    }
+
+    stages {
+        stage("Update") {
+            steps {
+                sh "aws eks update-kubeconfig --name=kwa-cluster --region=${REGION}"
+            }
+        }
+
+         stage("Apply") {
+            steps {
+                dir("eks") {
+                    sh "kubectl apply -f ./env/"
+                    sh "kubectl apply -f ./db/"
+                    sh "kubectl apply -f ./microservices/"
+            }
+        }
+    }
+}
