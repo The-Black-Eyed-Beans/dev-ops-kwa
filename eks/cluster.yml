@@ -1,8 +1,8 @@
 apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 metadata:
-  name: kwa-aline
-  region: us-west-1
+  name: kwa-cluster
+  region: us-east-1
 
 nodeGroups:
   - name: EKS-public-workers

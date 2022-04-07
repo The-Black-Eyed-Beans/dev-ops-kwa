@@ -19,18 +19,17 @@ resource "aws_iam_role_policy_attachment" "eks_policy" {
 	role = aws_iam_role.eks_role.name
 }
 
-# Optional, enable security groups for pods
 resource "aws_iam_role_policy_attachment" "eks_vpc_controller" {
 	policy_arn = "arn:aws:iam::aws:policy/AmazonEKSVPCResourceController"
 	role       = aws_iam_role.eks_role.name
 }
 
 resource "aws_eks_cluster" "eks" {
-	name = "kwa-cluster"
+	name = var.cluster_name
 	role_arn = aws_iam_role.eks_role.arn
 
 	vpc_config {
-		subnet_ids = [var.public_subnet_id, var.private_subnet_id]
+		subnet_ids = [var.public, var.private]
 	}
 
 	tags = {

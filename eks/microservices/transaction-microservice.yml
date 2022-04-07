@@ -20,7 +20,8 @@ spec:
         ng-type: private
       containers:
         - name: transaction
-          image: kw2000/transaction-microservice
+          image: 086620157175.dkr.ecr.us-east-1.amazonaws.com/kwa-transaction_microservice:latest
+          imagePullPolicy: Always
           ports:
             - name: transaction
               containerPort: 8073

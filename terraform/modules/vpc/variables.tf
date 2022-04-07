@@ -25,5 +25,15 @@ variable "public_subnet_az" {
 variable "private_subnet_az" {
   type = string
   description = "Avalibility zone for private subnet"
-  default = "us-east-1b"
+  default = "us-east-1a"
+}
+
+variable "sg_http" {
+	type = any
+	description = "sg http"
+}
+
+variable "sg_ssh" {
+	type = any
+	description = "sg ssh"
 }

@@ -5,7 +5,7 @@ resource "aws_vpc" "main" {
     Name = "kwa-aline-vpc"
   }
 }
-// provides a resource to create a VPC internet gateway
+
 resource "aws_internet_gateway" "gateway" {
   vpc_id = aws_vpc.main.id
 
@@ -13,14 +13,14 @@ resource "aws_internet_gateway" "gateway" {
     Name = "kwa-internet-gw"
   }
 }
-//eip and aws_nat_gateway build up the NAT gateway
+
 resource "aws_eip" "nat" {
     vpc = true
 }
 
 resource "aws_nat_gateway" "nat_gateway" {
   allocation_id = aws_eip.nat.id
-  subnet_id = aws_subnet.private.id
+  subnet_id = aws_subnet.public.id
 
   tags = {
     Name = "kwa-nat-gw"
@@ -39,6 +39,17 @@ resource "aws_subnet" "public" {
   }
 }
 
+resource "aws_subnet" "public2" {
+  vpc_id                  = aws_vpc.main.id
+  cidr_block              = "10.1.3.0/24"
+  availability_zone       = "us-east-1b"
+  map_public_ip_on_launch = true
+
+  tags = {
+    Name = "kwa-public-subnet-2"
+  }
+}
+
 resource "aws_subnet" "private" {
   vpc_id            = aws_vpc.main.id
   cidr_block        = var.private_subnet_cidr_block
@@ -48,6 +59,17 @@ resource "aws_subnet" "private" {
     Name = "kwa-private-subnet"
   }
 }
+
+resource "aws_subnet" "private2" {
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = "10.1.4.0/24"
+  availability_zone = "us-east-1b"
+
+  tags = {
+    Name = "kwa-private-subnet-2"
+  }
+}
+
 //add route
 resource "aws_route_table" "public_rt" {
   vpc_id = aws_vpc.main.id
