@@ -1,0 +1,11 @@
+---
+ - name: Working with AWS EC2 Instance
+   hosts: localhost
+   connection: local
+   gather_facts: false
+   tasks:
+     - name: Stop ec2 instance
+       ec2:
+         instance_ids: i-068d314deaa1b852a
+         region: us-east-1
+         state: stopped
